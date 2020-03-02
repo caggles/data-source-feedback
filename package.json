@@ -1,0 +1,22 @@
+{
+  "name": "data-source-feedback",
+  "version": "1.0.0",
+  "description": "sending feedback about data problems from the field in offline mapping apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caggles/data-source-feedback.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caggles/data-source-feedback/issues"
+  },
+  "homepage": "https://github.com/caggles/data-source-feedback#readme",
+  "dependencies": {
+    "boilerplate": "^0.6.1"
+  }
+}
