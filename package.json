@@ -18,8 +18,10 @@
   "homepage": "https://github.com/caggles/data-source-feedback#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "axios-oauth-client": "^1.2.1",
+    "axios-token-interceptor": "^0.2.0",
+    "boilerplate": "^0.6.1"
     "boilerplate": "^0.6.1",
-    "dropzone": "^5.7.0",
     "got": "^10.6.0",
     "is-online": "^8.2.1",
     "p-any": "^3.0.0",
