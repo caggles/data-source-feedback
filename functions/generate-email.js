@@ -7,7 +7,7 @@ async function convertGeoJsonToAttachment(obj, encoding) {
   let objJsonB64 = Buffer.from(objJsonStr).toString(encoding);
   return {
     content: objJsonB64,
-    contentType: 'json',
+    contentType: 'application/json',
     filename: `${uuid.v4()}.json`,
     encoding: encoding
   };
