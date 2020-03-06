@@ -14,6 +14,8 @@ async function convertGeoJsonToAttachment(obj, encoding) {
 
 module.exports = async function generateEmail(fromEmail, comment, catalogResult, geoJsons) {
 
+  // should validate that everything exists that we expect...
+
   let attachments = [];
   if (Array.isArray(geoJsons) && geoJsons.length) {
     attachments = await Promise.all(geoJsons.map(g => convertGeoJsonToAttachment(g, 'base64')));
@@ -31,9 +33,11 @@ module.exports = async function generateEmail(fromEmail, comment, catalogResult,
     to = catalogResult.contacts.map(c => c.email);
   }
 
-  to = ['jsherman@parcsystems.ca'];
-  cc = [];
-  bcc = [];
+  if (process.env.OVERRIDE_TO_EMAILS) {
+    to = [process.env.OVERRIDE_TO_EMAILS];
+    cc = [];
+    bcc = [];
+  }
 
   const context = {
     to: to,

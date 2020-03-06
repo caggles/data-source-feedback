@@ -7,7 +7,7 @@ const generateEmail = require('./functions/generate-email');
 
 class DataSourceFeedback {
     constructor(options) {
-        this._dataCatalogUrl = (options && options.dataCatalogUrl) || process.env.DATA_CATALOG_URL || 'https://catalogue.data.gov.bc.ca/api/3/';
+        this._dataCatalogUrl = (options && options.dataCatalogUrl) || process.env.DATA_CATALOG_URL || 'https://catalogue.data.gov.bc.ca/api/3';
         this._chesClientId = (options && options.chesClientId) || process.env.CHES_CLIENT_ID;
         this._chesClientSecret = (options && options.chesClientSecret) || process.env.CHES_CLIENT_SECRET;
         this._chesTokenUrl = (options && options.chesTokenUrl) || process.env.CHES_TOKEN_URL || 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token';
@@ -40,7 +40,7 @@ class DataSourceFeedback {
         unlock();
         // send the items
         let results = items.map(item => this.sendItem(fromEmail, item.packageName, item.comment, item.geoJsons));
-        return results;
+        return Promise.all(results);
     }
 
     async sendItem(fromEmail, packageName, comment, geoJsons) {
