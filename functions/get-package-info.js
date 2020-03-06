@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-module.exports = async function getPackageInfo(packageName, url = 'https://catalogue.data.gov.bc.ca/api/3/') {
+module.exports = async function getPackageInfo(packageName, url = 'https://catalogue.data.gov.bc.ca/api/3') {
     try {
-        const get_response = await axios.get(`action/package_show?id=${packageName}`,
+        const get_response = await axios.get(`/action/package_show?id=${packageName}`,
             {
                 baseURL: url,
                 timeout: 10000,
