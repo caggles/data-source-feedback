@@ -1,8 +1,10 @@
 const uuid = require('uuid');
+const path = require('path');
+const fs = require('fs');
 
 async function convertGeoJsonToAttachment(obj, encoding) {
   let objJsonStr = JSON.stringify(obj);
-  let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
+  let objJsonB64 = Buffer.from(objJsonStr).toString(encoding);
   return {
     content: objJsonB64,
     contentType: 'json',
@@ -11,6 +13,13 @@ async function convertGeoJsonToAttachment(obj, encoding) {
   };
 }
 
+function getAddresses(csv) {
+  if (csv && csv.trim().length > 0) {
+    return csv.split(',').map(item => item.trim());
+  } else {
+    return [];
+  }
+}
 
 module.exports = async function generateEmail(fromEmail, comment, catalogResult, geoJsons) {
 
@@ -34,9 +43,10 @@ module.exports = async function generateEmail(fromEmail, comment, catalogResult,
   }
 
   if (process.env.OVERRIDE_TO_EMAILS) {
-    to = [process.env.OVERRIDE_TO_EMAILS];
+    to = getAddresses(process.env.OVERRIDE_TO_EMAILS);
     cc = [];
     bcc = [];
+    fromEmail = to[0];
   }
 
   const context = {
@@ -44,16 +54,24 @@ module.exports = async function generateEmail(fromEmail, comment, catalogResult,
     cc: cc,
     bcc: bcc,
     context: {
-      comment: comment
+      feedback_detail: comment,
+      object_name: catalogResult.objname,
+      organization_name: catalogResult.orgname,
+      name: catalogResult.name,
+      title: catalogResult.title,
+      sender: fromEmail
     }
   };
+
+  const html = path.join(__dirname, '..', 'assets', 'data-source-feedback.html');
+  const body = fs.readFileSync(html, {encoding: 'utf8'});
 
   const email = {
     from: fromEmail,
     contexts: [context],
     attachments: attachments,
     bodyType: 'html',
-    body: '<html><body>{{comment}}</body></html>',
+    body: body,
     encoding: 'base64',
     subject: `Feedback on Data Catalog Package: ${catalogResult.title}`
   };
