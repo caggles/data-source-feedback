@@ -1,5 +1,6 @@
 const getPackageInfo = require('./functions/get-package-info');
 const generateEmail = require('./functions/generate-email');
+const isOnline = require('./functions/online');
 
 let packageInfoPromise = getPackageInfo('grizzly-bear-population-units');
 packageInfoPromise.then(function (packageInfo) {
@@ -30,7 +31,12 @@ generateEmailPromise.then(function (result) {
     console.log(result);
 });
 
+(async () => {
+    await isOnline()
+    let packageInfoPromise = getPackageInfo('grizzly-bear-population-units');
+    packageInfoPromise.then(function(packageInfo) {
+        console.log(packageInfo);
+    });
+})();
 
-
-
-
+console.log("continue doing the things");
