@@ -1,8 +1,8 @@
 //const dataSourceFeedback = require('./index');
-const getDataOwners = require('./functions/data-owner-call');
+const getPackageInfo = require('./functions/get-package-info');
 
-let contactInfoPromise = getDataOwners('grizzly-bear-population-units');
-contactInfoPromise.then(function(contactInfo) {
-    console.log(contactInfo);
+let packageInfoPromise = getPackageInfo('grizzly-bear-population-units');
+packageInfoPromise.then(function(packageInfo) {
+    console.log(packageInfo);
 });
 
