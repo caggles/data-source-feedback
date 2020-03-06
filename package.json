@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/caggles/data-source-feedback#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "boilerplate": "^0.6.1",
     "dropzone": "^5.7.0"
   }
