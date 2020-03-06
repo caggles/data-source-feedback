@@ -1,13 +1,12 @@
 const axios = require('axios');
 
-const instance = axios.create({
-    baseURL: 'https://catalogue.data.gov.bc.ca/api/3/',
-    timeout: 10000,
-    headers: {'accept': '*/*'}
-});
-
-module.exports = async function getPackageInfo(packageName) {
-    const get_response = await instance.get('action/package_show?id=' + packageName);
+module.exports = async function getPackageInfo(packageName, url = 'https://catalogue.data.gov.bc.ca/api/3/') {
+    const get_response = await axios.get(`action/package_show?id=${packageName}`,
+        {
+            baseURL: url,
+            timeout: 10000,
+            headers: {'accept': '*/*'}
+        });
     const packageFull = get_response.data.result;
     let packageInfo = {
         objname: packageFull.object_name,

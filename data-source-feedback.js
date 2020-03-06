@@ -2,12 +2,14 @@ const EmailService = require('./utils/email-service');
 const MemoryQueue = require('./utils/memory-queue');
 const Mutex = require('./utils/mutex-await');
 
+const getPackageInfo = require('./functions/get-package-info');
+
 class DataSourceFeedback {
     constructor(options) {
         this._dataCatalogUrl = options.dataCatalogUrl || process.env.DATA_CATALOG_URL;
         this._chesClientId = options.chesClientId || process.env.CHES_CLIENT_ID;
         this._chesClientSecret = options.chesClientSecret || process.env.CHES_CLIENT_SECRET;
-        this._chesTokenUrl = options._chesTokenUrl || process.env.CHES_TOKEN_URL;
+        this._chesTokenUrl = options.chesTokenUrl || process.env.CHES_TOKEN_URL;
         this._chesApiUrl = options.chesApiUrl || process.env.CHES_API_URL;
         this._queue = new MemoryQueue();
         this._mutex = new Mutex();
@@ -42,7 +44,7 @@ class DataSourceFeedback {
 
     async sendItem(fromEmail, fromName, packageName, comment, attachments) {
         // this is the real work...
-        const catalogResult = undefined;//await catalogFetch(this._dataCatalogUrl, packageName);
+        const catalogResult = getPackageInfo(packageName, this._dataCatalogUrl);
         // handle errors from here?
         const emails = undefined; //await buildEmails(fromEmail, fromName, comment, catalogResult, attachments);
         // handle errors from here?
