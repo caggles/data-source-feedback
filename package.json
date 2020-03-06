@@ -20,6 +20,7 @@
     "axios": "^0.19.2",
     "axios-oauth-client": "^1.2.1",
     "axios-token-interceptor": "^0.2.0",
-    "boilerplate": "^0.6.1"
+    "boilerplate": "^0.6.1",
+    "uuid": "^7.0.2"
   }
 }
