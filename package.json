@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/caggles/data-source-feedback#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "axios-oauth-client": "^1.2.1",
     "axios-token-interceptor": "^0.2.0",
     "boilerplate": "^0.6.1",
